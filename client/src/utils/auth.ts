@@ -1,9 +1,9 @@
 import { JwtPayload, jwtDecode } from 'jwt-decode';
-import type { UserData } from '../interfaces/UserData';
+
 class AuthService {
   getProfile() {
     // TODO: return the decoded token
-    return jwtDecode<UserData>(this.getToken());
+    return jwtDecode(this.getToken());
   }
 
   loggedIn() {

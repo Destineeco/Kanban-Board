@@ -1,11 +1,12 @@
 import { Router, Request, Response } from 'express';
-import { User } from '../models/user';
+import { User } from '../models/user.js';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 
 // Login handler
 export const login = async (req: Request, res: Response) => {
   const { username, password } = req.body;
+  console.log(username);
 
   try {
     // Check if the user exists in the database
@@ -22,13 +23,13 @@ export const login = async (req: Request, res: Response) => {
     }
 
     // JWT secret key
-    const secretKey = process.env.JWT_SECRET_KEY || 'your_default_secret_key';  // It's better to handle default secret more securely
+    const secretKey = process.env.JWT_SECRET_KEY || 'crud';  
 
-    // Create JWT token with user data (you can include the user's ID or other details)
+    
     const token = jwt.sign(
       { id: user.id, username: user.username }, // Include user ID for better security and identification
       secretKey, 
-      { expiresIn: '1h' } // Token expiration time
+      { expiresIn: '1D' } // Token expiration time
     );
 
     return res.json({ token }); // Send the JWT token as a response
